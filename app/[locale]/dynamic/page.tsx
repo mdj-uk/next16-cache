@@ -6,7 +6,6 @@ const Home = async ({ params, searchParams }: { params: { locale: string }, sear
 
   const { locale } = paramsPromise;
 
-	console.log('page.tsx', searchParamsPromise)
 	await fakeAwait(2000);
 
   return (
