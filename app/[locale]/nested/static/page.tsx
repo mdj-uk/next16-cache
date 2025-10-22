@@ -1,14 +1,15 @@
-'use cache'
 
 import {fakeAwait} from '@/utils/fakeAwait';
 import Image from "next/image";
+import {Suspense} from 'react';
 
-const Home = async ({ params }: { params: { locale: string } }) => {
-  params = await params;
+const CachedHome = async ({params}: {params: {locale: string}}) => {
+	'use cache'
+
 	await fakeAwait(2000);
 
-	return (
-		<div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
@@ -25,6 +26,16 @@ const Home = async ({ params }: { params: { locale: string } }) => {
         </div>
       </main>
     </div>
+  );
+}
+
+const Home = async ({ params }: { params: { locale: string } }) => {
+  params = await params;
+
+	return (
+		<Suspense fallback={<div>Loading cached page...</div>}>
+			<CachedHome params={params} />
+		</Suspense>
 	)
 }
 
