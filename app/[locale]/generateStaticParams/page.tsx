@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const Home = async ({ params }: { params: { locale: string } }) => {
 	cacheLife({ stale: 10, revalidate: 20 })
-	cacheTag('page')
+	cacheTag('generateStaticParams')
 
   params = await params;
 	await fakeAwait(1000);
@@ -30,6 +30,10 @@ const Home = async ({ params }: { params: { locale: string } }) => {
       </main>
     </div>
 	)
+}
+
+export async function generateStaticParams() {
+  return [{locale: 'en'}]
 }
 
 export default Home;
