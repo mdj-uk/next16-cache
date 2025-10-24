@@ -1,18 +1,21 @@
-'use cache'
-
-import {fakeAwait} from '@/utils/fakeAwait';
-import {cacheLife, cacheTag} from 'next/cache';
+import { fakeAwait } from "@/utils/fakeAwait";
+import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 
+export function generateStaticParams() {
+  return [{ locale: "en" }];
+}
+
 const Home = async ({ params }: { params: { locale: string } }) => {
-	cacheLife({ stale: 10, revalidate: 20 })
-	cacheTag('page')
+  "use cache";
+  cacheLife({ stale: 10, revalidate: 20 });
+  cacheTag("page");
 
   params = await params;
-	await fakeAwait(1000);
+  await fakeAwait(1000);
 
-	return (
-		<div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
@@ -29,7 +32,7 @@ const Home = async ({ params }: { params: { locale: string } }) => {
         </div>
       </main>
     </div>
-	)
-}
+  );
+};
 
 export default Home;
